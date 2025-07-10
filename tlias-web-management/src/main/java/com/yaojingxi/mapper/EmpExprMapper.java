@@ -1,6 +1,11 @@
 package com.yaojingxi.mapper;
 
+import com.yaojingxi.pojo.EmpExpr;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
 /**
  * @Description:员工工作经历的Mapper
  * @Author: yaojingxi
@@ -9,5 +14,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface EmpExprMapper {
 
-
+    void insertBatch(List<EmpExpr> exprList);
 }

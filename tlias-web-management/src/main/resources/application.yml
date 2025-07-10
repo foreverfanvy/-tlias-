@@ -1,4 +1,4 @@
-
+# springboot 配置文件
 spring:
   application:
       name: tlias-web-management
@@ -15,3 +15,7 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 开启驼峰命名自动映射功能
     map-underscore-to-camel-case: true
+#配置事务管理日志级别
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
