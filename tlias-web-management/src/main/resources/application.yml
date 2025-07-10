@@ -2,12 +2,17 @@
 spring:
   application:
       name: tlias-web-management
-# 数据库链接信息
+  # 数据库链接信息
   datasource:
     url: jdbc:mysql://localhost:3306/tlias
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 105822
+  servlet:
+    multipart:
+      max-file-size: 10MB #最大单个文件大小，Spring默认是1MB
+      max-request-size: 100MB #一次请求上传最大限制
+
 # mybatis 配置
 mybatis:
   configuration:
