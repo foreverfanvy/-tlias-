@@ -96,4 +96,23 @@ public class EmpServiceImpl implements EmpService {
 
     }
 
+    @Override
+    public LoginInfo login(Emp emp) {
+        //实现登录的方法
+        // 1.调用Mapper来进行查询
+        Emp e = empMapper.selectByusernameAndPassword(emp);
+        //2.判断是否有这个员工，存在返回登录组装的登录凭证
+        if (e != null) {
+            //如果存在就返回登录信息
+            LoginInfo loginInfo = new LoginInfo();
+            loginInfo.setId(e.getId());
+            loginInfo.setUsername(e.getUsername());
+            loginInfo.setName(e.getName());
+            loginInfo.setToken("token_" + e.getId() + "_" + System.currentTimeMillis()); //这里可以生成一个token
+            return loginInfo;
+        }
+        //3.如果失败就直接返回null
+        else return  null;
+    }
+
 }

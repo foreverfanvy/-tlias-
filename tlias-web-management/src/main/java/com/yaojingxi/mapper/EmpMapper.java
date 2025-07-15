@@ -48,4 +48,6 @@ public interface EmpMapper {
 
     @MapKey("name")
     List<Map> getSex();
+
+    Emp selectByusernameAndPassword(Emp emp);
 }

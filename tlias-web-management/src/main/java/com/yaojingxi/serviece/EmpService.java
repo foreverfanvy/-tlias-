@@ -1,6 +1,7 @@
 package com.yaojingxi.serviece;
 
 import com.yaojingxi.pojo.Emp;
+import com.yaojingxi.pojo.LoginInfo;
 import com.yaojingxi.pojo.PageResult;
 import com.yaojingxi.pojo.empQueryParam;
 import org.springframework.stereotype.Service;
@@ -19,4 +20,6 @@ public interface EmpService {
     Emp get(Integer id);
 
     void update(Emp emp);
+
+    LoginInfo login(Emp emp);
 }

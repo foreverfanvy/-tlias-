@@ -27,7 +27,7 @@ public class EmpController {
     @Autowired
     private EmpService empService;
 
-    @GetMapping
+    @GetMapping()
     public Result page(empQueryParam param
 //           @RequestParam(defaultValue = "1") Integer page,//当前页码
 //           @RequestParam(defaultValue = "10") Integer pageSize,

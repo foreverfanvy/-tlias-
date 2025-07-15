@@ -101,6 +101,9 @@
             if(gender = 1,'男','女') as name ,count(*) as value from emp
             group by gender
     </select>
+    <select id="selectByusernameAndPassword" resultType="com.yaojingxi.pojo.Emp">
+        select id,username,name from emp where username = #{username} and password = #{password}
+    </select>
 
 
 </mapper>

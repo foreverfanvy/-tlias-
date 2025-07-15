@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+//文件上传和保存到本地磁盘的实现代码，具体配置云环境的方法在这里是没有实现的
 @Slf4j
 @RestController
 public class UploadController {
