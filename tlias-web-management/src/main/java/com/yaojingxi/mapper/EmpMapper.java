@@ -2,13 +2,11 @@ package com.yaojingxi.mapper;
 
 import com.yaojingxi.pojo.Emp;
 import com.yaojingxi.pojo.empQueryParam;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:员工的Mapper
@@ -34,4 +32,20 @@ public interface EmpMapper {
             "values(#{username},#{password},#{name},#{gender},#{phone},#{job},#{salary}," +
             "#{image},#{entryDate},#{deptId},#{createTime},#{updateTime})")
     void insert(Emp emp);
+
+    //动态SQL在xml中进行定义
+    void deleteByIds(Integer[] ids);
+
+    //太长了用xml来写
+    Emp getById(Integer id);
+
+
+    void updateById(Emp emp);
+
+    //统计员工职位人数的
+    @MapKey("pos")
+    List<Map<String, Object>> getAll();
+
+    @MapKey("name")
+    List<Map> getSex();
 }

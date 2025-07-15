@@ -60,4 +60,40 @@ public class EmpServiceImpl implements EmpService {
 
     }
 
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void delete(Integer[] ids) {
+        //1.删除员工基本信息根据id
+        empMapper.deleteByIds(ids);
+        //2.根据员工的emp_id来删除员工的经历信息，批量删除
+        empExprMapper.deleteByEmpIds(ids);
+    }
+
+    @Override
+    public Emp get(Integer id) {
+        //查询回显
+        return empMapper.getById(id);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void update(Emp emp) {
+        //1.根据id来更新基本信息——上传时间
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.updateById(emp);
+        //2.删除之前的员工经历信息
+        empExprMapper.deleteByEmpIds(new Integer[]{emp.getId()});
+        //3.添加新的经历信息
+        List<EmpExpr> exprList = emp.getExprList();// 获取emp里面封装的信息
+        if (!CollectionUtils.isEmpty(exprList)) {
+            //将其经历设置到对于emp的ExprList中去
+            exprList.forEach(empExpr -> {
+                empExpr.setEmpId(emp.getId());
+            });
+            //将exprList中的经历导入到对应的地方去
+            empExprMapper.insertBatch(exprList);
+        }
+
+    }
+
 }

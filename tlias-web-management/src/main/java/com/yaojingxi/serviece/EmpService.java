@@ -13,4 +13,10 @@ public interface EmpService {
     PageResult<Emp> page(empQueryParam param);
     //新建员工
     void save(Emp emp);
+    //删除员工（包括员工经历）
+    void delete(Integer[] ids);
+    //查询回显两个表的内容
+    Emp get(Integer id);
+
+    void update(Emp emp);
 }
