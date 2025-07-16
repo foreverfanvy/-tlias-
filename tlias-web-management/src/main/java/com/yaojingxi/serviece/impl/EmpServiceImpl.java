@@ -7,6 +7,8 @@ import com.yaojingxi.mapper.EmpMapper;
 import com.yaojingxi.pojo.*;
 import com.yaojingxi.serviece.EmpLogService;
 import com.yaojingxi.serviece.EmpService;
+import com.yaojingxi.utils.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,8 +17,11 @@ import org.springframework.util.CollectionUtils;
 
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Service
 public class EmpServiceImpl implements EmpService {
     @Autowired
@@ -101,18 +106,25 @@ public class EmpServiceImpl implements EmpService {
         //实现登录的方法
         // 1.调用Mapper来进行查询
         Emp e = empMapper.selectByusernameAndPassword(emp);
-        //2.判断是否有这个员工，存在返回登录组装的登录凭证
+        //2.判断是否有这个员工
         if (e != null) {
             //如果存在就返回登录信息
-            LoginInfo loginInfo = new LoginInfo();
-            loginInfo.setId(e.getId());
-            loginInfo.setUsername(e.getUsername());
-            loginInfo.setName(e.getName());
-            loginInfo.setToken("token_" + e.getId() + "_" + System.currentTimeMillis()); //这里可以生成一个token
+            LoginInfo loginInfo = new LoginInfo(e.getId(), e.getUsername(), e.getName(), null);
+            // 使用 LoginInfo 的 getClaims 方法来获取完整的 claims
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("id", loginInfo.getId());
+            claims.put("username", loginInfo.getUsername());
+            claims.put("name", loginInfo.getName());
+            // 生成 JWT
+            JwtUtils jwtUtils = new JwtUtils();
+            String jwt = jwtUtils.generateJwt(claims);
+            loginInfo.setToken(jwt);
+
+            log.info("登录成功，用户信息：{}", loginInfo);
             return loginInfo;
         }
         //3.如果失败就直接返回null
-        else return  null;
+        return null;
     }
 
 }

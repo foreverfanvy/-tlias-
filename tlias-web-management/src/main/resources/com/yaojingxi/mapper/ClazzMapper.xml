@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaojingxi.mapper.ClazzMapper">
+    <insert id="insert">
+        insert into clazz (name,room,begin_date,end_date,subject
+            <if test="masterId != null and masterId != ''">
+                ,master_id
+            </if>
+            ) values (
+            #{name}, #{room}, #{beginDate}, #{endDate},#{subject}
+            <if test="masterId != null">
+                ,#{masterId}
+            </if>
+        )
+    </insert>
+    <update id="update">
+        update clazz set
+        name = #{name},
+        room = #{room},
+        begin_date = #{beginDate},
+        end_date = #{endDate},
+        master_id = #{masterId}
+        <if test="subject != null and subject != ''">
+            ,subject = #{subject}
+        </if>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from clazz where id = #{id}
+    </delete>
+
+    <select id="getById" resultType="com.yaojingxi.pojo.Clazz">
+        select * from clazz where id = #{id}
+    </select>
+
+    <select id="list" resultType="com.yaojingxi.pojo.Clazz">
+        select * from clazz
+    </select>
+
+    <select id="listPage" resultType="com.yaojingxi.pojo.Clazz">
+        select * from clazz
+        <where>
+            <if test="name!=null and name !=''">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="end != null and end !=''">
+                and end_date &lt;= #{end}
+            </if>
+            <if test="begin != null and begin !=''">
+                and begin_date &gt;= #{begin}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+</mapper>
+
+
