@@ -1,5 +1,6 @@
 package com.yaojingxi.controller;
 
+import com.yaojingxi.anno.Log;
 import com.yaojingxi.pojo.Dept;
 import com.yaojingxi.pojo.Result;
 import com.yaojingxi.serviece.DeptService;
@@ -20,7 +21,7 @@ public class DeptController {
         List<Dept> deptList = deptService.findAll();
         return Result.success(deptList);
     }
-
+    @Log
     @DeleteMapping(value = "/depts")
     public Result delete(@RequestParam(value = "id", required = true) Integer id) {
         System.out.println("删除部门数据id=：" + id);
@@ -29,6 +30,7 @@ public class DeptController {
     }
 
     //这里需要进行一个JSON格式的数据的传入
+    @Log
     @PostMapping(value = "/depts")
     public Result add(@RequestBody Dept dept) {//@RequestBody表示接收JSON格式的数据
         System.out.println("添加部门数据：" + dept);
@@ -45,6 +47,7 @@ public class DeptController {
     }
 
     //完成修改数据的功能，前提是查询回显功能
+    @Log
     @PutMapping( "/depts")
     public Result update(@RequestBody Dept dept) {
         System.out.println("修改部门数据：" + dept);

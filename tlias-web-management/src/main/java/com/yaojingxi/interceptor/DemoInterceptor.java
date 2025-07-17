@@ -8,7 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
-@Component
+//@Component
 public class DemoInterceptor implements HandlerInterceptor {
     //在请求处理之前进行调用（Controller方法调用之前），true表示继续流程，false表示中断流程
     @Override
