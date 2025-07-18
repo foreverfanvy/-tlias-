@@ -11,3 +11,7 @@
 
 # target
 /target/
+tlias-web-management/target/
+
+# IntelliJ IDEA project files
+.idea
